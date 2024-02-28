@@ -5,29 +5,26 @@ import mongoose from 'mongoose';
 
 import config from './config/config.js';
 
-const app: express.Application = express();
+const startServer = () => {
+  const app: express.Application = express();
 
-app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
-mongoose
+  const server: http.Server = http.createServer(app);
+
+  server.listen(config.server.port, () => {
+    console.log(
+      `Server listening on port http://localhost:${config.server.port}/`
+    );
+  });
+};
+
+await mongoose
   .connect(config.mongo.url)
   .then(() => {
     console.log('Connected successfully to MongoDB');
+    startServer();
   })
-  .catch((e) => {
-    console.log('Erorr while connecting to MongoDB: '+ e);
+  .catch((e: Error) => {
+    console.log('Erorr while connecting to MongoDB: ' + e);
   });
-
-const server: http.Server = http.createServer(app);
-
-app.get('/', (req: express.Request, res: express.Response) => {
-  console.log(config.mongo.url);
-  console.log(config.server.port);
-  res.json('Hello world');
-});
-
-server.listen(config.server.port, () => {
-  console.log(
-    `Server listening on port http://localhost:${config.server.port}/`
-  );
-});
