@@ -6,7 +6,5 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "noEmit": true,
-    "allowImportingTsExtensions": true
   }
 }

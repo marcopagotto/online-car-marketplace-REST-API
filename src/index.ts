@@ -3,12 +3,14 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import mongoose from 'mongoose';
 
-import config from './config/config.ts';
+import config from './config/config.js';
+import router from './routes/index.js';
 
 const startServer = () => {
   const app: express.Application = express();
 
   app.use(bodyParser.json());
+  app.use('/', router());
 
   const server: http.Server = http.createServer(app);
 

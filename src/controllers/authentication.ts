@@ -1,8 +1,11 @@
 import express from 'express';
-import { random, authentication } from '../library/library.ts';
-import { createUser, getUserByEmail } from '../db/users.ts';
+import { random, authentication } from '../library/library.js';
+import { createUser, getUserByEmail } from '../db/users.js';
 
-const registerUser = async (req: express.Request, res: express.Response) => {
+export const registerUser = async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const { username, email, password } = req.body;
 
@@ -27,7 +30,7 @@ const registerUser = async (req: express.Request, res: express.Response) => {
       },
     });
 
-    return res.status(201).json(newUser).end()
+    return res.status(201).json(newUser).end();
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
