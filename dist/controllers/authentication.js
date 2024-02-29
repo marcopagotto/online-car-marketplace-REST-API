@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
                 salt,
             },
         });
-        return res.status(200).json(newUser).end();
+        return res.status(201).json(newUser).end();
     }
     catch (error) {
         console.log(error);

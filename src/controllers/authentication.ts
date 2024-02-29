@@ -1,6 +1,6 @@
 import express from 'express';
 import { random, authentication } from '../library/library.js';
-import { createUser, getUserByEmail } from '../db/users.js';
+import { createUser, getUserByEmail, getUsers } from '../db/users.js';
 
 export const registerUser = async (
   req: express.Request,
@@ -21,7 +21,7 @@ export const registerUser = async (
 
     const salt = random();
 
-    const newUser = createUser({
+    const newUser = await createUser({
       username,
       email,
       authentication: {
