@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import mongoose from 'mongoose';
 
-import config from './config/config.js';
+import config from './config/config.ts';
 
 const startServer = () => {
   const app: express.Application = express();
