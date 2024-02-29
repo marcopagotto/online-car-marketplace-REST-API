@@ -1,14 +1,21 @@
 import { getUserBySessionToken } from '../db/users.js';
-import { merge } from 'lodash';
+import _ from 'lodash';
 export const isAuthenticated = async (req, res, next) => {
-    const sessionToken = req.cookies['AUTH-LOGIN'];
-    if (!sessionToken) {
-        return res.sendStatus(403);
+    try {
+        const sessionToken = req.cookies['AUTH-LOGIN'];
+        console.log(sessionToken);
+        if (!sessionToken) {
+            return res.sendStatus(403);
+        }
+        const user = await getUserBySessionToken(sessionToken);
+        if (!user) {
+            return res.sendStatus(403);
+        }
+        _.merge(req, { identity: user });
+        next();
     }
-    const user = await getUserBySessionToken(sessionToken);
-    if (!user) {
-        return res.sendStatus(403);
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
     }
-    merge(req, { identity: user });
-    next();
 };

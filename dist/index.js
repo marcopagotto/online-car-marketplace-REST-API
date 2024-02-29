@@ -4,9 +4,11 @@ import http from 'http';
 import mongoose from 'mongoose';
 import config from './config/config.js';
 import router from './routes/index.js';
+import cookieParser from 'cookie-parser';
 const startServer = () => {
     const app = express();
     app.use(bodyParser.json());
+    app.use(cookieParser());
     app.use('/', router());
     const server = http.createServer(app);
     server.listen(config.server.port, () => {
