@@ -70,7 +70,9 @@ export const loginUser = async (
       salt,
       user._id.toString()
     );
-
+    
+    await user.save();
+    
     res.cookie('AUTH-LOGIN', user.authentication.sessionToken, {
       domain: 'localhost',
       path: '/',

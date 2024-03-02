@@ -42,6 +42,7 @@ export const loginUser = async (req, res) => {
         }
         const salt = random();
         user.authentication.sessionToken = authentication(salt, user._id.toString());
+        await user.save();
         res.cookie('AUTH-LOGIN', user.authentication.sessionToken, {
             domain: 'localhost',
             path: '/',
