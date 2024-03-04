@@ -1,4 +1,9 @@
 import mongoose from 'mongoose';
+const CarSchema = new mongoose.Schema({
+    make: { type: String, required: true },
+    model: { type: String, required: true },
+    year: { type: Number, required: true },
+});
 const UserSchema = new mongoose.Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
@@ -7,6 +12,7 @@ const UserSchema = new mongoose.Schema({
         salt: { type: String, select: false },
         sessionToken: { type: String, select: false },
     },
+    cars: [CarSchema],
 });
 export const User = mongoose.model('User', UserSchema);
 export const getUsers = () => User.find();
