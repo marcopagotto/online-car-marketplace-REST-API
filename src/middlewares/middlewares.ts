@@ -1,5 +1,6 @@
 import express from 'express';
 import { getUserBySessionToken } from '../db/users.js';
+import { RequestWithIdentity } from '../interfaces/request-with-identity.js';
 import _ from 'lodash';
 
 export const isAuthenticated: express.RequestHandler = async (
@@ -29,10 +30,6 @@ export const isAuthenticated: express.RequestHandler = async (
     return res.sendStatus(400);
   }
 };
-
-interface RequestWithIdentity extends express.Request {
-  identity: any[];
-}
 
 export const isOwner = async (
   req: express.Request,
