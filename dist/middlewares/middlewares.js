@@ -32,6 +32,7 @@ export const isOwner = async (req, res, next) => {
         if (currentId !== id) {
             return res.sendStatus(400);
         }
+        next();
     }
     catch (error) {
         console.log(error);
