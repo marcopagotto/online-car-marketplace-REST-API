@@ -21,3 +21,24 @@ export const deleteUser = async (req, res) => {
         return res.sendStatus(400);
     }
 };
+export const addCar = async (req, res) => {
+    try {
+        const { make, model, year } = req.body;
+        if (!make || !model || !year) {
+            return res.sendStatus(400);
+        }
+        const car = { make: make, model: model, year: year };
+        const id = req.identity[0]._id.toString();
+        if (!id) {
+            return res.sendStatus(400);
+        }
+        const user = await getUserById(id);
+        user?.cars.push(car);
+        await user?.save();
+        return res.status(200).json(user).end();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};
