@@ -1,5 +1,10 @@
 import express from 'express';
-import { getUsers, deleteUserById, getUserById } from '../db/users.js';
+import {
+  getUsers,
+  deleteUserById,
+  getUserById,
+  getCarOwnerByCarId,
+} from '../db/users.js';
 
 import { RequestWithIdentity } from '../interfaces/request-with-identity.js';
 
@@ -55,6 +60,23 @@ export const addCar = async (req: express.Request, res: express.Response) => {
     await user?.save();
 
     return res.status(200).json(user).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const getOwner = async (req: express.Request, res: express.Response) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.sendStatus(400);
+    }
+    console.log(id)
+    const owner = await getCarOwnerByCarId(id);
+    console.log(owner)
+    return res.status(200).json(owner).end();
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

@@ -1,4 +1,4 @@
-import { getUsers, deleteUserById, getUserById } from '../db/users.js';
+import { getUsers, deleteUserById, getUserById, getCarOwnerByCarId, } from '../db/users.js';
 export const users = async (req, res) => {
     try {
         const users = await getUsers();
@@ -36,6 +36,22 @@ export const addCar = async (req, res) => {
         user?.cars.push(car);
         await user?.save();
         return res.status(200).json(user).end();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};
+export const getOwner = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return res.sendStatus(400);
+        }
+        console.log(id);
+        const owner = await getCarOwnerByCarId(id);
+        console.log(owner);
+        return res.status(200).json(owner).end();
     }
     catch (error) {
         console.log(error);

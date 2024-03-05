@@ -36,3 +36,6 @@ export const updateUserById = (id: string, values: Record<string, any>) =>
 
 export const deleteUserById = (id: string) =>
   User.findOneAndDelete({ _id: id });
+
+export const getCarOwnerByCarId = (id: string) =>
+  User.findOne({ 'cars._id': id });

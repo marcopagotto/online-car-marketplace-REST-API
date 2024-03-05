@@ -22,3 +22,4 @@ export const getUserBySessionToken = (sessionToken) => User.find({ 'authenticati
 export const createUser = (values) => new User(values).save().then((user) => user.toObject());
 export const updateUserById = (id, values) => User.findByIdAndUpdate({ _id: id }, values);
 export const deleteUserById = (id) => User.findOneAndDelete({ _id: id });
+export const getCarOwnerByCarId = (id) => User.findOne({ 'cars._id': id });
