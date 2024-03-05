@@ -70,13 +70,12 @@ export const loginUser = async (
       salt,
       user._id.toString()
     );
-    
+
     await user.save();
-    
+
     res.cookie('AUTH-LOGIN', user.authentication.sessionToken, {
       domain: 'localhost',
       path: '/',
-      maxAge: 100000,
     });
 
     res.status(200).json(user).end();

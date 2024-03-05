@@ -46,7 +46,6 @@ export const loginUser = async (req, res) => {
         res.cookie('AUTH-LOGIN', user.authentication.sessionToken, {
             domain: 'localhost',
             path: '/',
-            maxAge: 100000,
         });
         res.status(200).json(user).end();
     }
