@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import { createListing } from '../db/listings.js';
 import { CarSchema } from '../db/users.js';
+import { getUserById } from '../db/users.js';
 
 export const newListing = async (
   req: express.Request,
@@ -16,6 +17,14 @@ export const newListing = async (
     };
 
     if (!car || !owner || !price) {
+      return res.sendStatus(400);
+    }
+
+    const user = await getUserById(owner.toString());
+
+    console.log(user);
+
+    if (!user) {
       return res.sendStatus(400);
     }
 
