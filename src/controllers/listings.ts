@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import { createListing } from '../db/listings.js';
 import { getUserById, getCarOwnerByCarId } from '../db/users.js';
+import { getListings } from '../db/listings.js';
 
 export const newListing = async (
   req: express.Request,
@@ -37,13 +38,27 @@ export const newListing = async (
 
     if (!car) {
       return res.sendStatus(400);
-    } 
+    }
 
     const listing = await createListing(car, owner, price);
 
     console.log(listing);
 
     return res.status(200).json(listing).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const findListings = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const listings = await getListings();
+
+    return res.status(200).json(listings).end();
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
