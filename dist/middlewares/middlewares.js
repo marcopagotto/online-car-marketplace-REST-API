@@ -39,3 +39,23 @@ export const isOwner = async (req, res, next) => {
         return res.sendStatus(400);
     }
 };
+export const isCarOwner = (req, res, next) => {
+    try {
+        const currentId = req.identity[0]._id.toString();
+        if (!currentId) {
+            return res.sendStatus(400);
+        }
+        const owner = req.body.owner;
+        if (!owner) {
+            return res.sendStatus(400);
+        }
+        if (currentId !== owner) {
+            return res.sendStatus(400);
+        }
+        next();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};

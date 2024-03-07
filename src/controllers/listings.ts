@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import { createListing } from '../db/listings.js';
-import { CarSchema } from '../db/users.js';
 import { getUserById, getCarOwnerByCarId } from '../db/users.js';
 
 export const newListing = async (

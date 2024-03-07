@@ -1,7 +1,6 @@
 import express from 'express';
 import { users, deleteUser, addCar, getOwner } from '../controllers/users.js';
 import { isAuthenticated, isOwner } from '../middlewares/middlewares.js';
-import { newListing } from '../controllers/listings.js';
 
 export default (router: express.Router) => {
   router.get('/users', isAuthenticated, users);
