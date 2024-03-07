@@ -14,8 +14,10 @@ export const newListing = async (req, res) => {
         if (JSON.stringify(user) !== JSON.stringify(expectedUser)) {
             return res.sendStatus(400);
         }
-        const car = user.cars.find((car) => car._id.toString() === carId);
-        console.log(car);
+        const car = user.cars.find((car) => car?._id?.toString() === carId.toString());
+        if (!car) {
+            return res.sendStatus(400);
+        }
         const listing = await createListing(car, owner, price);
         console.log(listing);
         return res.status(200).json(listing).end();

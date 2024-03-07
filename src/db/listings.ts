@@ -13,7 +13,7 @@ const Listing = mongoose.model('Listing', ListingSchema);
 export const getListings = () => Listing.find();
 
 export const createListing = (
-  car: typeof CarSchema,
+  car: mongoose.Types.Subdocument,
   owner: mongoose.Schema.Types.ObjectId,
   price: number
 ) => {

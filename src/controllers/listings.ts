@@ -32,9 +32,14 @@ export const newListing = async (
       return res.sendStatus(400);
     }
 
-    const car = user.cars.find((car) => car._id.toString() === carId);
+    const car = user.cars.find(
+      (car) => car?._id?.toString() === carId.toString()
+    );
 
-    console.log(car);
+    if (!car) {
+      return res.sendStatus(400);
+    } 
+
     const listing = await createListing(car, owner, price);
 
     console.log(listing);
