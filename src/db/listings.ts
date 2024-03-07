@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { CarSchema, User } from './users.js';
+import { CarSchema } from './users.js';
 
 const ListingSchema = new mongoose.Schema({
   car: { type: CarSchema, required: true },
