@@ -8,5 +8,4 @@ export default (router: express.Router) => {
   router.delete('/users/:id', isAuthenticated, isOwner, deleteUser);
   router.post('/cars/:id', isAuthenticated, isOwner, addCar);
   router.get('/cars/owner/:id', getOwner);
-  router.post('/a', newListing)
 };
