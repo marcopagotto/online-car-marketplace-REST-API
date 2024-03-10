@@ -2,12 +2,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import http from 'http';
 import mongoose from 'mongoose';
+import compression from 'compression';
 import config from './config/config.js';
 import router from './routes/index.js';
 import cookieParser from 'cookie-parser';
 const startServer = () => {
     const app = express();
     app.use(bodyParser.json());
+    app.use(compression());
     app.use(cookieParser());
     app.use('/', router());
     const server = http.createServer(app);
