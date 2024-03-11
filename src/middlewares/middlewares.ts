@@ -4,9 +4,9 @@ import { RequestWithIdentity } from '../interfaces/request-with-identity.js';
 import _ from 'lodash';
 
 export const isAuthenticated: express.RequestHandler = async (
-  req,
-  res,
-  next
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
 ) => {
   try {
     const sessionToken = req.cookies['AUTH-LOGIN'];
