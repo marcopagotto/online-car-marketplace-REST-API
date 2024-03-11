@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import mongoose from 'mongoose';
 import compression from 'compression';
+import apicache from 'apicache';
 import config from './config/config.js';
 import router from './routes/index.js';
 import cookieParser from 'cookie-parser';
@@ -11,6 +12,7 @@ const startServer = () => {
     app.use(bodyParser.json());
     app.use(compression());
     app.use(cookieParser());
+    app.use(apicache.middleware('5 minutes'));
     app.use('/', router());
     const server = http.createServer(app);
     server.listen(config.server.port, () => {
