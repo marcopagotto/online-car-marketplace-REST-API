@@ -14,7 +14,7 @@ export const users = async (req: express.Request, res: express.Response) => {
     return res.status(200).json(users).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(403);
+    return res.sendStatus(400);
   }
 };
 

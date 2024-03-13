@@ -8,7 +8,7 @@ export const registerUser = async (req, res) => {
         }
         const existingUser = await getUserByEmail(email);
         if (existingUser) {
-            return res.sendStatus(400);
+            return res.sendStatus(403);
         }
         const salt = random();
         const newUser = await createUser({

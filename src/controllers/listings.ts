@@ -29,7 +29,7 @@ export const newListing = async (
     const expectedUser = await getCarOwnerByCarId(carId.toString());
 
     if (JSON.stringify(user) !== JSON.stringify(expectedUser)) {
-      return res.sendStatus(400);
+      return res.sendStatus(401);
     }
 
     const car = user.cars.find(

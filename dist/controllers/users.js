@@ -6,7 +6,7 @@ export const users = async (req, res) => {
     }
     catch (error) {
         console.log(error);
-        return res.sendStatus(403);
+        return res.sendStatus(400);
     }
 };
 export const deleteUser = async (req, res) => {

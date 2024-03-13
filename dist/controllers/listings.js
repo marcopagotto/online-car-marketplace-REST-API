@@ -13,7 +13,7 @@ export const newListing = async (req, res) => {
         }
         const expectedUser = await getCarOwnerByCarId(carId.toString());
         if (JSON.stringify(user) !== JSON.stringify(expectedUser)) {
-            return res.sendStatus(400);
+            return res.sendStatus(401);
         }
         const car = user.cars.find((car) => car?._id?.toString() === carId.toString());
         if (!car) {

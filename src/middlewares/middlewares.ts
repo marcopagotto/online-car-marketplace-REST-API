@@ -52,7 +52,7 @@ export const isOwner = async (
     }
 
     if (currentId !== id) {
-      return res.sendStatus(400);
+      return res.sendStatus(401);
     }
 
     next();
@@ -81,7 +81,7 @@ export const isCarOwner = (
     }
 
     if (currentId !== owner) {
-      return res.sendStatus(400);
+      return res.sendStatus(401);
     }
 
     next();
