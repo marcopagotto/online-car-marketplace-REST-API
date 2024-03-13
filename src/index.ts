@@ -27,7 +27,7 @@ const startServer = () => {
   });
 };
 
-await mongoose
+mongoose
   .connect(config.mongo.url)
   .then(() => {
     console.log('Connected successfully to MongoDB');

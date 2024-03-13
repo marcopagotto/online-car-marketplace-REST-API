@@ -19,7 +19,7 @@ const startServer = () => {
         console.log(`Server listening on port http://localhost:${config.server.port}/`);
     });
 };
-await mongoose
+mongoose
     .connect(config.mongo.url)
     .then(() => {
     console.log('Connected successfully to MongoDB');
