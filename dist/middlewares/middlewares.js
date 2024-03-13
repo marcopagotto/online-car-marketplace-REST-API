@@ -1,14 +1,16 @@
 import { getUserBySessionToken } from '../db/users.js';
 import _ from 'lodash';
+import apicache from 'apicache';
 export const isAuthenticated = async (req, res, next) => {
     try {
         const sessionToken = req.cookies['AUTH-LOGIN'];
         if (!sessionToken) {
+            apicache.clear(req.url);
             return res.sendStatus(403);
         }
         const user = await getUserBySessionToken(sessionToken);
         if (!user) {
-            console.log(user);
+            apicache.clear(req.url);
             return res.sendStatus(403);
         }
         _.merge(req, { identity: user });

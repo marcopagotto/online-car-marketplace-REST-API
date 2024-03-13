@@ -15,8 +15,8 @@ const startServer = () => {
   app.use(bodyParser.json());
   app.use(compression());
   app.use(cookieParser());
-  app.use(apicache.middleware('5 minutes'));
   app.use('/', router());
+  app.use(apicache.middleware('5 minutes'));
 
   const server: http.Server = http.createServer(app);
 

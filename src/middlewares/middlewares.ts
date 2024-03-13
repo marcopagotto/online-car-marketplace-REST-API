@@ -2,6 +2,7 @@ import express from 'express';
 import { getUserBySessionToken } from '../db/users.js';
 import { RequestWithIdentity } from '../interfaces/request-with-identity.js';
 import _ from 'lodash';
+import apicache from 'apicache';
 
 export const isAuthenticated: express.RequestHandler = async (
   req: express.Request,
@@ -12,13 +13,14 @@ export const isAuthenticated: express.RequestHandler = async (
     const sessionToken = req.cookies['AUTH-LOGIN'];
 
     if (!sessionToken) {
+      apicache.clear(req.url);
       return res.sendStatus(403);
     }
 
     const user = await getUserBySessionToken(sessionToken);
 
     if (!user) {
-      console.log(user);
+      apicache.clear(req.url);
       return res.sendStatus(403);
     }
 
