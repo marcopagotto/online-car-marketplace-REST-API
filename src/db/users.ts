@@ -19,7 +19,9 @@ const UserSchema = new mongoose.Schema({
 
 export const User = mongoose.model('User', UserSchema);
 
-export const getUsers = () => User.find();
+export const getUsers = (docAmount = 3) => {
+  return User.find().limit(docAmount);
+};
 
 export const getUserById = (id: string) => User.findById(id);
 
