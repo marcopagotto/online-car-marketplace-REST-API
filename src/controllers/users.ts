@@ -90,9 +90,13 @@ export const getOwner = async (req: express.Request, res: express.Response) => {
     if (!id) {
       return res.sendStatus(400);
     }
-    console.log(id);
+
     const owner = await getCarOwnerByCarId(id);
-    console.log(owner);
+
+    if (!owner) {
+      return res.sendStatus(400);
+    }
+    
     return res.status(200).json(owner).end();
   } catch (error) {
     console.log(error);
