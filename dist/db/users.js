@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
     cars: [CarSchema],
 });
 export const User = mongoose.model('User', UserSchema);
-export const getUsers = (docAmount = 3) => {
+export const getUsers = (docAmount = 5) => {
     return User.find().limit(docAmount);
 };
 export const getUserById = (id) => User.findById(id);

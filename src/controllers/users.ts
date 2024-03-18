@@ -10,8 +10,25 @@ import { RequestWithIdentity } from '../interfaces/request-with-identity.js';
 
 export const users = async (req: express.Request, res: express.Response) => {
   try {
-    const users = await getUsers();
-    return res.status(200).json(users).end();
+    const { results } = req.query;
+
+    if (!results) {
+      const users = await getUsers();
+      return res.status(200).json(users).end();
+    }
+
+    const docAmount = parseInt(results as string);
+
+    console.log(docAmount);
+
+    if (isNaN(docAmount) || docAmount < 1) {
+      console.log('is NaN');
+      return res.sendStatus(400);
+    } else {
+      console.log('aint NaN');
+      const users = await getUsers(docAmount);
+      return res.status(200).json(users).end();
+    }
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
