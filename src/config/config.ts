@@ -4,7 +4,9 @@ dotenv.config();
 
 const MONGO_ADMIN = process.env.MONGO_ADMIN || '';
 const MONGO_ADMIN_PASSWORD = process.env.MONGO_ADMIN_PASSWORD || '';
-const MONGO_URL = `mongodb+srv://${MONGO_ADMIN}:${MONGO_ADMIN_PASSWORD}@cluster0.w4mh190.mongodb.net/`;
+const MONGO_CLUSTER_NAME = process.env.MONGO_CLUSTER_NAME || 'cluster0';
+const MONGO_CLUSTER_IDENTIFIER = process.env.MONGO_CLUSTER_IDENTIFIER || '';
+const MONGO_URL = `mongodb+srv://${MONGO_ADMIN}:${MONGO_ADMIN_PASSWORD}@${MONGO_CLUSTER_NAME}.${MONGO_CLUSTER_IDENTIFIER}.mongodb.net/`;
 
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
