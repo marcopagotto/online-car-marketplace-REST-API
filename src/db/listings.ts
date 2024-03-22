@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 import { CarSchema } from './users.js';
 
@@ -24,3 +25,6 @@ export const createListing = (
   };
   return new Listing(listing).save().then((list) => list.toObject());
 };
+
+export const deleteListingsByUserId = (id: string) =>
+  Listing.deleteMany({ owner: new ObjectId(id) });

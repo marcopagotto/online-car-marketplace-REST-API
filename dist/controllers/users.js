@@ -1,4 +1,5 @@
 import { getUsers, deleteUserById, getUserById, getCarOwnerByCarId, } from '../db/users.js';
+import { deleteListingsByUserId } from '../db/listings.js';
 export const users = async (req, res) => {
     try {
         const { results } = req.query;
@@ -27,6 +28,7 @@ export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await getUserById(id);
+        await deleteListingsByUserId(id);
         await deleteUserById(id);
         return res.status(200).json(user).end();
     }
