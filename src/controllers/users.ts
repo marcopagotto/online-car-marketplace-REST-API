@@ -46,6 +46,7 @@ export const deleteUser = async (
     const user = await getUserById(id);
     await deleteListingsByUserId(id);
     await deleteUserById(id);
+    res.clearCookie('AUTH-LOGIN');
     return res.status(200).json(user).end();
   } catch (error) {
     console.log(error);

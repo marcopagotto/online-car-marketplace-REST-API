@@ -30,6 +30,7 @@ export const deleteUser = async (req, res) => {
         const user = await getUserById(id);
         await deleteListingsByUserId(id);
         await deleteUserById(id);
+        res.clearCookie('AUTH-LOGIN');
         return res.status(200).json(user).end();
     }
     catch (error) {
