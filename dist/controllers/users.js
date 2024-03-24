@@ -76,3 +76,26 @@ export const getOwner = async (req, res) => {
         return res.sendStatus(400);
     }
 };
+export const deleteCar = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            res.sendStatus(400);
+        }
+        const user = req.identity[0];
+        if (!user) {
+            res.sendStatus(400);
+        }
+        const index = user?.cars.findIndex((car) => car._id.toString() === id);
+        console.log(index);
+        if (index > -1) {
+            user?.cars.splice(index, 1);
+        }
+        await user?.save();
+        res.status(200).json(user).end();
+    }
+    catch (error) {
+        console.log(error);
+        res.sendStatus(400);
+    }
+};
