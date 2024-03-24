@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserBySessionToken } from '../db/users.js';
+import { getUserBySessionToken, getCarOwnerByCarId } from '../db/users.js';
 import { RequestWithIdentity } from '../interfaces/request-with-identity.js';
 import _ from 'lodash';
 import apicache from 'apicache';
@@ -62,7 +62,7 @@ export const isOwner = async (
   }
 };
 
-export const isCarOwner = (
+export const isCarOwner = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -74,14 +74,34 @@ export const isCarOwner = (
       return res.sendStatus(400);
     }
 
-    const owner = req.body.owner;
+    if (req.method === 'POST') {
+      const owner = req.body.owner;
 
-    if (!owner) {
-      return res.sendStatus(400);
+      if (!owner) {
+        return res.sendStatus(400);
+      }
+
+      if (currentId !== owner) {
+        return res.sendStatus(401);
+      }
     }
 
-    if (currentId !== owner) {
-      return res.sendStatus(401);
+    if (req.method === 'DELETE') {
+      const { id } = req.params;
+
+      if (!id) {
+        return res.sendStatus(400);
+      }
+
+      const owner = await getCarOwnerByCarId(id);
+
+      if (!owner) {
+        return res.sendStatus(400);
+      }
+
+      if (currentId !== owner._id.toString()) {
+        return res.sendStatus(401);
+      }
     }
 
     next();

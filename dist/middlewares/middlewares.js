@@ -1,4 +1,4 @@
-import { getUserBySessionToken } from '../db/users.js';
+import { getUserBySessionToken, getCarOwnerByCarId } from '../db/users.js';
 import _ from 'lodash';
 import apicache from 'apicache';
 export const isAuthenticated = async (req, res, next) => {
@@ -41,18 +41,33 @@ export const isOwner = async (req, res, next) => {
         return res.sendStatus(400);
     }
 };
-export const isCarOwner = (req, res, next) => {
+export const isCarOwner = async (req, res, next) => {
     try {
         const currentId = req.identity[0]._id.toString();
         if (!currentId) {
             return res.sendStatus(400);
         }
-        const owner = req.body.owner;
-        if (!owner) {
-            return res.sendStatus(400);
+        if (req.method === 'POST') {
+            const owner = req.body.owner;
+            if (!owner) {
+                return res.sendStatus(400);
+            }
+            if (currentId !== owner) {
+                return res.sendStatus(401);
+            }
         }
-        if (currentId !== owner) {
-            return res.sendStatus(401);
+        if (req.method === 'DELETE') {
+            const { id } = req.params;
+            if (!id) {
+                return res.sendStatus(400);
+            }
+            const owner = await getCarOwnerByCarId(id);
+            if (!owner) {
+                return res.sendStatus(400);
+            }
+            if (currentId !== owner._id.toString()) {
+                return res.sendStatus(401);
+            }
         }
         next();
     }
