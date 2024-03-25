@@ -31,3 +31,6 @@ export const deleteListingsByUserId = (id: string) =>
 
 export const getListingById = (id: string) =>
   Listing.findOne({ _id: new ObjectId(id) });
+
+export const deleteListingById = (id: string) =>
+  Listing.deleteOne({ _id: new ObjectId(id) });
