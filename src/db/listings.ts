@@ -28,3 +28,6 @@ export const createListing = (
 
 export const deleteListingsByUserId = (id: string) =>
   Listing.deleteMany({ owner: new ObjectId(id) });
+
+export const getListingById = (id: string) =>
+  Listing.findOne({ _id: new ObjectId(id) });

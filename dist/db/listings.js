@@ -17,3 +17,4 @@ export const createListing = (car, owner, price) => {
     return new Listing(listing).save().then((list) => list.toObject());
 };
 export const deleteListingsByUserId = (id) => Listing.deleteMany({ owner: new ObjectId(id) });
+export const getListingById = (id) => Listing.findOne({ _id: new ObjectId(id) });

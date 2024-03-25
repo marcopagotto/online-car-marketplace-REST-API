@@ -1,6 +1,7 @@
 import { getUserBySessionToken, getCarOwnerByCarId } from '../db/users.js';
 import _ from 'lodash';
 import apicache from 'apicache';
+import { getListingById } from '../db/listings.js';
 export const isAuthenticated = async (req, res, next) => {
     try {
         const sessionToken = req.cookies['AUTH-LOGIN'];
@@ -68,6 +69,34 @@ export const isCarOwner = async (req, res, next) => {
             if (currentId !== owner._id.toString()) {
                 return res.sendStatus(401);
             }
+        }
+        next();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};
+export const isListingOwner = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return res.sendStatus(400);
+        }
+        const listing = await getListingById(id);
+        if (!listing) {
+            return res.sendStatus(400);
+        }
+        const owner = listing.owner.toString();
+        if (!owner) {
+            return res.sendStatus(400);
+        }
+        const currentId = req.identity[0]._id.toString();
+        if (!currentId) {
+            return res.sendStatus(400);
+        }
+        if (currentId !== owner) {
+            return res.sendStatus(401);
         }
         next();
     }
