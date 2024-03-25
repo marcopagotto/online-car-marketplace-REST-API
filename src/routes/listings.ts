@@ -4,6 +4,7 @@ import {
   newListing,
   findListings,
   deleteListing,
+  getListingById,
 } from '../controllers/listings.js';
 import {
   isAuthenticated,
@@ -14,5 +15,11 @@ import {
 export default (router: express.Router) => {
   router.post('/listings', isAuthenticated, isCarOwner, newListing);
   router.get('/listings', findListings);
-  router.delete('/listings/:id', isAuthenticated, isListingOwner, deleteListing);
+  router.delete(
+    '/listings/:id',
+    isAuthenticated,
+    isListingOwner,
+    deleteListing
+  );
+  router.get('/listings/:id', isAuthenticated, getListingById);
 };

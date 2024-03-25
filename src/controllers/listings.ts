@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import {
   createListing,
   deleteListingById,
-  getListingById,
+  getListingById as findListingById,
 } from '../db/listings.js';
 import { getUserById, getCarOwnerByCarId } from '../db/users.js';
 import { getListings } from '../db/listings.js';
@@ -80,13 +80,37 @@ export const deleteListing = async (
       return res.sendStatus(400);
     }
 
-    const listing = await getListingById(id);
+    const listing = await findListingById(id);
 
     if (!listing) {
       return res.sendStatus(400);
     }
 
     await deleteListingById(id);
+
+    return res.status(200).json(listing).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const getListingById = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.sendStatus(400);
+    }
+
+    const listing = await findListingById(id);
+
+    if (!listing) {
+      return res.sendStatus(400);
+    }
 
     return res.status(200).json(listing).end();
   } catch (error) {
