@@ -45,6 +45,7 @@ Connect to the API using Postman on the port specified at .env.
 | GET        | /api/listings       | To retrive all the listings available                                                                          | No restrictions                                                                                 |
 | GET | /api/listings/:id | To retrive the listing with the specified id | <ul><li>User must be authenticated</ul>
 | PATCH | /api/auth/change-password | To update the password of the authenticated user | <ul><li>User must be authenticated</ul>
+| PATCH | /api/cars/:id | To update the fields of the car with the specified id | <ul><li>User must be authenitcated<li>User must be car owner</ul>
 | DELETE     | /api/users/:id      | To delete the user with the specified id </br> <em>Performing such action will also delete all users' listings and will clear authentication cookies</em>                                                            | <ul><li>User must be authenticated <li>User must be account owner<ul>                           |
 DELETE | /api/cars/:id | To delete the car with the specified id | <ul><li>User must be authenticated <li> User must be account owner<li> User must own the car</ul> |
 DELETE | /api/listings/:id | To delete the listing with the specified id | <ul><li>User must be authenticated<li>User must be account<li>User must be listing owner</ul> |
