@@ -87,7 +87,7 @@ export const isCarOwner = async (
       }
     }
 
-    if (req.method === 'DELETE') {
+    if (req.method === 'DELETE' || 'PATCH') {
       const { id } = req.params;
 
       if (!id) {

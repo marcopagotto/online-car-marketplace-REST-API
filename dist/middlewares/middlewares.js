@@ -57,7 +57,7 @@ export const isCarOwner = async (req, res, next) => {
                 return res.sendStatus(401);
             }
         }
-        if (req.method === 'DELETE') {
+        if (req.method === 'DELETE' || 'PATCH') {
             const { id } = req.params;
             if (!id) {
                 return res.sendStatus(400);
