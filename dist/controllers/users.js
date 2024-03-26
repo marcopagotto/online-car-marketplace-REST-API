@@ -99,3 +99,29 @@ export const deleteCar = async (req, res) => {
         res.sendStatus(400);
     }
 };
+export const editCar = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log('runs');
+        if (!id) {
+            return res.sendStatus(400);
+        }
+        const { make, model, year } = req.body;
+        if (!make && !model && !year) {
+            return res.sendStatus(400);
+        }
+        const car = req.identity[0].cars.find((car) => car._id.toString() === id);
+        if (!car) {
+            return res.sendStatus(400);
+        }
+        car.make = make || car.make;
+        car.model = model || car.model;
+        car.year = year || car.year;
+        await car.save();
+        return res.status(200).json(car).end();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};

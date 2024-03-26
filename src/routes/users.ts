@@ -5,6 +5,7 @@ import {
   addCar,
   getOwner,
   deleteCar,
+  editCar
 } from '../controllers/users.js';
 import {
   isAuthenticated,
@@ -18,4 +19,5 @@ export default (router: express.Router) => {
   router.post('/cars/:id', isAuthenticated, isOwner, addCar);
   router.get('/cars/owner/:id', isAuthenticated, getOwner);
   router.delete('/cars/:id', isAuthenticated, isCarOwner, deleteCar);
+  router.patch('/cars/:id', isAuthenticated, isCarOwner, editCar);
 };

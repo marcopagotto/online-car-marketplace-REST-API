@@ -1,4 +1,4 @@
-import { users, deleteUser, addCar, getOwner, deleteCar, } from '../controllers/users.js';
+import { users, deleteUser, addCar, getOwner, deleteCar, editCar } from '../controllers/users.js';
 import { isAuthenticated, isCarOwner, isOwner, } from '../middlewares/middlewares.js';
 export default (router) => {
     router.get('/users', isAuthenticated, users);
@@ -6,4 +6,5 @@ export default (router) => {
     router.post('/cars/:id', isAuthenticated, isOwner, addCar);
     router.get('/cars/owner/:id', isAuthenticated, getOwner);
     router.delete('/cars/:id', isAuthenticated, isCarOwner, deleteCar);
+    router.patch('/cars/:id', isAuthenticated, isCarOwner, editCar);
 };

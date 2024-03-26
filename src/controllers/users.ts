@@ -8,7 +8,10 @@ import {
 
 import { deleteListingsByUserId } from '../db/listings.js';
 
-import { RequestWithIdentity, Car } from '../interfaces/request-with-identity.js';
+import {
+  RequestWithIdentity,
+  Car,
+} from '../interfaces/request-with-identity.js';
 
 export const users = async (req: express.Request, res: express.Response) => {
   try {
@@ -137,5 +140,45 @@ export const deleteCar = async (
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
+  }
+};
+
+export const editCar = async (req: express.Request, res: express.Response) => {
+  try {
+    const { id } = req.params;
+
+    console.log('runs');
+    if (!id) {
+      return res.sendStatus(400);
+    }
+
+    const { make, model, year } = req.body as {
+      make: string;
+      model: string;
+      year: number;
+    };
+
+    if (!make && !model && !year) {
+      return res.sendStatus(400);
+    }
+
+    const car = (req as RequestWithIdentity).identity[0].cars.find(
+      (car: Car) => car._id.toString() === id
+    );
+
+    if (!car) {
+      return res.sendStatus(400);
+    }
+
+    car.make = make || car.make;
+    car.model = model || car.model;
+    car.year = year || car.year;
+
+    await car.save();
+
+    return res.status(200).json(car).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
   }
 };
