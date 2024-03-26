@@ -54,3 +54,29 @@ export const loginUser = async (req, res) => {
         return res.sendStatus(400);
     }
 };
+export const editUserPassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        if (!oldPassword || !newPassword) {
+            return res.sendStatus(400);
+        }
+        const user = await getUserByEmail(req.identity[0].email).select('+authentication.salt +authentication.password');
+        if (!user) {
+            return res.sendStatus(400);
+        }
+        const expectedPassword = authentication(user?.authentication?.salt, oldPassword);
+        if (expectedPassword !== user?.authentication?.password) {
+            return res.sendStatus(400);
+        }
+        user.authentication.password = authentication(user?.authentication?.salt, newPassword);
+        if (expectedPassword === user.authentication.password) {
+            return res.sendStatus(400);
+        }
+        await user.save();
+        return res.status(200).json(user).end();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};
