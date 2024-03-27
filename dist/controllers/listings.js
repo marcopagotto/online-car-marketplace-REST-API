@@ -86,6 +86,9 @@ export const editListingById = async (req, res) => {
         if (!carId && !price) {
             return res.sendStatus(400);
         }
+        if (await getListingByCarId(carId)) {
+            return res.sendStatus(400);
+        }
         const currentId = req.identity[0]._id.toString();
         if (!currentId) {
             return res.sendStatus(400);
