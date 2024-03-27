@@ -6,7 +6,11 @@ import {
   getCarOwnerByCarId,
 } from '../db/users.js';
 
-import { deleteListingsByUserId } from '../db/listings.js';
+import {
+  deleteListingById,
+  deleteListingsByUserId,
+  getListingByCarId,
+} from '../db/listings.js';
 
 import {
   RequestWithIdentity,
@@ -129,9 +133,15 @@ export const deleteCar = async (
     }
 
     const index = user?.cars.findIndex((car: Car) => car._id.toString() === id);
-    console.log(index);
+
     if (index > -1) {
       user?.cars.splice(index, 1);
+
+      const carListing = await getListingByCarId(id);
+
+      if (carListing) {
+        await deleteListingById(carListing._id.toString());
+      }
     }
 
     await user?.save();

@@ -1,5 +1,5 @@
 import { getUsers, deleteUserById, getUserById, getCarOwnerByCarId, } from '../db/users.js';
-import { deleteListingsByUserId } from '../db/listings.js';
+import { deleteListingById, deleteListingsByUserId, getListingByCarId, } from '../db/listings.js';
 export const users = async (req, res) => {
     try {
         const { results } = req.query;
@@ -87,9 +87,12 @@ export const deleteCar = async (req, res) => {
             res.sendStatus(400);
         }
         const index = user?.cars.findIndex((car) => car._id.toString() === id);
-        console.log(index);
         if (index > -1) {
             user?.cars.splice(index, 1);
+            const carListing = await getListingByCarId(id);
+            if (carListing) {
+                await deleteListingById(carListing._id.toString());
+            }
         }
         await user?.save();
         res.status(200).json(user).end();
