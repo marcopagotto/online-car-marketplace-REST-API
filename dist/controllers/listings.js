@@ -1,10 +1,13 @@
-import { createListing, deleteListingById, getListingById as findListingById, } from '../db/listings.js';
+import { createListing, deleteListingById, getListingById as findListingById, getListingByCarId, } from '../db/listings.js';
 import { getUserById, getCarOwnerByCarId } from '../db/users.js';
 import { getListings } from '../db/listings.js';
 export const newListing = async (req, res) => {
     try {
         const { carId, owner, price } = req.body;
         if (!carId || !owner || !price) {
+            return res.sendStatus(400);
+        }
+        if (await getListingByCarId(carId.toString())) {
             return res.sendStatus(400);
         }
         const user = await getUserById(owner.toString());
