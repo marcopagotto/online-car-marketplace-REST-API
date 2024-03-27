@@ -5,6 +5,7 @@ import {
   findListings,
   deleteListing,
   getListingById,
+  editListingById,
 } from '../controllers/listings.js';
 import {
   isAuthenticated,
@@ -20,6 +21,12 @@ export default (router: express.Router) => {
     isAuthenticated,
     isListingOwner,
     deleteListing
+  );
+  router.patch(
+    '/listings/:id',
+    isAuthenticated,
+    isListingOwner,
+    editListingById
   );
   router.get('/listings/:id', isAuthenticated, getListingById);
 };

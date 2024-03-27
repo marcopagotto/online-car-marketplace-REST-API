@@ -71,6 +71,8 @@ export const isCarOwner = async (
   try {
     const currentId = (req as RequestWithIdentity).identity[0]._id.toString();
 
+    console.log(req.method);
+
     if (!currentId) {
       return res.sendStatus(400);
     }
@@ -87,7 +89,7 @@ export const isCarOwner = async (
       }
     }
 
-    if (req.method === 'DELETE' || 'PATCH') {
+    if (req.method === 'DELETE' || req.method === 'PATCH') {
       const { id } = req.params;
 
       if (!id) {

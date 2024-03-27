@@ -73,3 +73,46 @@ export const getListingById = async (req, res) => {
         return res.sendStatus(400);
     }
 };
+export const editListingById = async (req, res) => {
+    try {
+        const { id: listingId } = req.params;
+        if (!listingId) {
+            return res.sendStatus(400);
+        }
+        const { carId, price } = req.body;
+        if (!carId && !price) {
+            return res.sendStatus(400);
+        }
+        const currentId = req.identity[0]._id.toString();
+        if (!currentId) {
+            return res.sendStatus(400);
+        }
+        if (carId) {
+            const carOwner = await getCarOwnerByCarId(carId);
+            if (!carOwner) {
+                return res.sendStatus(400);
+            }
+            console.log(currentId);
+            console.log(carOwner);
+            if (currentId !== carOwner._id.toString()) {
+                return res.sendStatus(400);
+            }
+        }
+        const car = req.identity[0].cars.find((car) => car._id.toString() === carId);
+        if (!car) {
+            return res.sendStatus(400);
+        }
+        const listing = await findListingById(listingId);
+        if (!listing) {
+            return res.sendStatus(400);
+        }
+        listing.price = price || listing.price;
+        listing.car = car || listing.car;
+        await listing.save();
+        return res.status(200).json(listing).end();
+    }
+    catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+};
