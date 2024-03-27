@@ -52,7 +52,7 @@ export const addCar = async (req, res) => {
         const user = await getUserById(id);
         user?.cars.push(car);
         await user?.save();
-        return res.status(200).json(user).end();
+        return res.status(200).json(car).end();
     }
     catch (error) {
         console.log(error);
