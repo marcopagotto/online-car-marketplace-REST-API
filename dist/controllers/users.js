@@ -10,11 +10,9 @@ export const users = async (req, res) => {
         const docAmount = parseInt(results);
         console.log(docAmount);
         if (isNaN(docAmount) || docAmount < 1) {
-            console.log('is NaN');
             return res.sendStatus(400);
         }
         else {
-            console.log('aint NaN');
             const users = await getUsers(docAmount);
             return res.status(200).json(users).end();
         }
@@ -100,13 +98,12 @@ export const deleteCar = async (req, res) => {
     }
     catch (error) {
         console.log(error);
-        res.sendStatus(400);
+        return res.sendStatus(400);
     }
 };
 export const editCar = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log('runs');
         if (!id) {
             return res.sendStatus(400);
         }

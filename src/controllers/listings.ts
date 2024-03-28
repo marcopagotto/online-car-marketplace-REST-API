@@ -55,8 +55,6 @@ export const newListing = async (
 
     const listing = await createListing(car, owner, price);
 
-    console.log(listing);
-
     return res.status(200).json(listing).end();
   } catch (error) {
     console.log(error);
@@ -176,8 +174,7 @@ export const editListingById = async (
       if (!carOwner) {
         return res.sendStatus(400);
       }
-      console.log(currentId);
-      console.log(carOwner);
+
       if (currentId !== carOwner._id.toString()) {
         return res.sendStatus(400);
       }
