@@ -113,9 +113,6 @@ export const editListingById = async (req, res) => {
             }
         }
         const car = req.identity[0].cars.find((car) => car._id.toString() === carId);
-        if (!car) {
-            return res.sendStatus(400);
-        }
         const listing = await findListingById(listingId);
         if (!listing) {
             return res.sendStatus(400);

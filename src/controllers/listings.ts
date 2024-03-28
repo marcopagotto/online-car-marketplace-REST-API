@@ -148,7 +148,6 @@ export const editListingById = async (
     if (!listingId) {
       return res.sendStatus(400);
     }
-
     const { carId, price } = req.body as {
       carId: string;
       price: number;
@@ -179,14 +178,10 @@ export const editListingById = async (
         return res.sendStatus(400);
       }
     }
-
+    
     const car: Car = (req as RequestWithIdentity).identity[0].cars.find(
       (car: Car) => car._id.toString() === carId
-    );
-
-    if (!car) {
-      return res.sendStatus(400);
-    }
+      );
 
     const listing = await findListingById(listingId);
 
@@ -198,7 +193,6 @@ export const editListingById = async (
     listing.car = car || listing.car;
 
     await listing.save();
-
     return res.status(200).json(listing).end();
   } catch (error) {
     console.log(error);
