@@ -222,4 +222,248 @@ Notes: </br>each car can <em>only</em> be associated to one listing
 ]
 ```
 
-Notes: </br> by default the amount of users returned is capped at 5 - in the example provided there is only one user in the database - to specify the amount of users returned, "results" query should be included:<code>http://localhost:8080/api/users?results=10</code>
+Notes: </br> by default the amount of users returned is capped at 5 - in the example provided there is only one user in the database - to specify the amount of users returned, "results" query should be included:<code>.../api/users?results=10</code>
+
+</br>
+
+<li><b>Get car owner by car id:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/cars/owner/66058dca9776944f3ea1f819</code></br>
+<em>Request method</em>: <b>
+<span style="color: green;">GET</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+{
+  "_id": "66056f78595b4f13e5b43111",
+  "username": "marco",
+  "email": "marco@gmail.com",
+  "cars": [
+    {
+      "make": "Lamborghini",
+      "model": "Aventador",
+      "year": 2022,
+      "_id": "66058dca9776944f3ea1f819"
+    }
+  ],
+  "__v": 1
+}
+```
+
+</br>
+
+<li><b>Get listings:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/listings</code></br>
+<em>Request method</em>: <b>
+<span style="color: green;">GET</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+[
+  {
+    "car": {
+      "make": "Lamborghini",
+      "model": "Aventador",
+      "year": 2022,
+      "_id": "66058dca9776944f3ea1f819"
+    },
+    "owner": "66056f78595b4f13e5b43111",
+    "price": 180000,
+    "_id": "66058fe99776944f3ea1f824",
+    "__v": 0
+  }
+]
+```
+
+Notes: </br> by default the amount of listings returned is capped at 5 - in the example provided there is only one listing in the database - to specify the amount of listings returned, "results" query should be included:<code>.../api/listings?results=10</code>
+
+</br>
+
+<li><b>Get listings by listing id:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/listings/66058fe99776944f3ea1f824</code></br>
+<em>Request method</em>: <b>
+<span style="color: green;">GET</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+{
+  "_id": "66058fe99776944f3ea1f824",
+  "car": {
+    "make": "Lamborghini",
+    "model": "Aventador",
+    "year": 2022,
+    "_id": "66058dca9776944f3ea1f819"
+  },
+  "owner": "66056f78595b4f13e5b43111",
+  "price": 180000,
+  "__v": 0
+}
+```
+
+</br>
+
+<li><b>Change password:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/auth/change-password</code></br>
+<em>Request method</em>: <b>
+<span style="color: purple">PATCH</span>
+</b></br>
+
+<em>Request body</em>:
+
+```json
+{
+  "oldPassword": "password",
+  "newPassword": "new-password"
+}
+```
+
+<em>Response body:</em>
+
+```json
+{
+  "authentication": {
+    "password": "49899853ddd257d6a224f5d88ad9722cee654e2a5e968fb29964569e09f73ee9",
+    "salt": "fUhg7kAfqkDp8fzrx5CvTq/o0UiN5XcMrO5Qk8K9O5PPqHFEOWhLQnqwtc4Du/AV745br0bf/iha8UYWQ98CnqtK/HWA/pudGsnBVb7kWYZzkOCrL7Pidc/Q55e+dTvSRSSKDCeH0DrZ/pUKv3bH1ewTR5IAfRrumRCy8TwP9Zo="
+  },
+  "_id": "66056f78595b4f13e5b43111",
+  "username": "marco",
+  "email": "marco@gmail.com",
+  "cars": [
+    {
+      "make": "Lamborghini",
+      "model": "Aventador",
+      "year": 2022,
+      "_id": "66058dca9776944f3ea1f819"
+    }
+  ],
+  "__v": 1
+}
+```
+
+</br>
+
+<li><b>Edit car:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/cars/update/66058dca9776944f3ea1f819</code></br>
+<em>Request method</em>: <b>
+<span style="color: purple">PATCH</span>
+</b></br>
+
+<em>Request body</em>:
+
+```json
+{
+  "model": "Huracan"
+}
+```
+
+<em>Response body:</em>
+
+```json
+{
+  "make": "Lamborghini",
+  "model": "Huracan",
+  "year": 2022,
+  "_id": "66058dca9776944f3ea1f819"
+}
+```
+
+Notes: </br> car's changes will also affect the possible listing associated to the specified car
+
+</br>
+
+<li><b>Edit listing:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/listings/update/66058fe99776944f3ea1f824</code></br>
+<em>Request method</em>: <b>
+<span style="color: purple">PATCH</span>
+</b></br>
+
+<em>Request body</em>:
+
+```json
+{
+  "price": 220000
+}
+```
+
+<em>Response body:</em>
+
+```json
+{
+  "_id": "66058fe99776944f3ea1f824",
+  "car": {
+    "make": "Lamborghini",
+    "model": "Huracan",
+    "year": 2022,
+    "_id": "66058dca9776944f3ea1f819"
+  },
+  "owner": "66056f78595b4f13e5b43111",
+  "price": 220000,
+  "__v": 0
+}
+```
+
+</br>
+
+<li><b>Delete listing by listing id:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/listings/delete/66058fe99776944f3ea1f824</code></br>
+<em>Request method</em>: <b>
+<span style="color: red">DELETE</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+{
+  "_id": "66058fe99776944f3ea1f824",
+  "car": {
+    "make": "Lamborghini",
+    "model": "Huracan",
+    "year": 2022,
+    "_id": "66058dca9776944f3ea1f819"
+  },
+  "owner": "66056f78595b4f13e5b43111",
+  "price": 220000,
+  "__v": 0
+}
+```
+
+</br>
+
+<li><b>Delete car by car id:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/cars/delete/66058dca9776944f3ea1f819</code></br>
+<em>Request method</em>: <b>
+<span style="color: red">DELETE</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+{
+  "make": "Lamborghini",
+  "model": "Aventador",
+  "year": 2022,
+  "_id": "66058dca9776944f3ea1f819"
+}
+```
+<li><b>Delete user by user id:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/users/delete/66056f78595b4f13e5b43111</code></br>
+<em>Request method</em>: <b>
+<span style="color: red">DELETE</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+{
+    "_id": "66056f78595b4f13e5b43111",
+    "username": "marco",
+    "email": "marco@gmail.com",
+    "cars": [],
+    "__v": 4
+}
+```
