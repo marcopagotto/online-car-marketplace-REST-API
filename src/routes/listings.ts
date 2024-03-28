@@ -14,16 +14,16 @@ import {
 } from '../middlewares/middlewares.js';
 
 export default (router: express.Router) => {
-  router.post('/listings', isAuthenticated, isCarOwner, newListing);
+  router.post('/listings/create', isAuthenticated, isCarOwner, newListing);
   router.get('/listings', findListings);
   router.delete(
-    '/listings/:id',
+    '/listings/delete/:id',
     isAuthenticated,
     isListingOwner,
     deleteListing
   );
   router.patch(
-    '/listings/:id',
+    '/listings/update/:id',
     isAuthenticated,
     isListingOwner,
     editListingById

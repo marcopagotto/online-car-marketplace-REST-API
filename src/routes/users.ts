@@ -15,9 +15,9 @@ import {
 
 export default (router: express.Router) => {
   router.get('/users', isAuthenticated, users);
-  router.delete('/users/:id', isAuthenticated, isOwner, deleteUser);
-  router.post('/cars/:id', isAuthenticated, isOwner, addCar);
+  router.delete('/users/delete/:id', isAuthenticated, isOwner, deleteUser);
+  router.post('/cars/add/:id', isAuthenticated, isOwner, addCar);
   router.get('/cars/owner/:id', isAuthenticated, getOwner);
-  router.delete('/cars/:id', isAuthenticated, isCarOwner, deleteCar);
-  router.patch('/cars/:id', isAuthenticated, isCarOwner, editCar);
+  router.delete('/cars/delete/:id', isAuthenticated, isCarOwner, deleteCar);
+  router.patch('/cars/update/:id', isAuthenticated, isCarOwner, editCar);
 };
