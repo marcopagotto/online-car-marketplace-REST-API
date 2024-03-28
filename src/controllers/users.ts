@@ -135,7 +135,7 @@ export const deleteCar = async (
 
     const index = user?.cars.findIndex((car: Car) => car._id.toString() === id);
 
-    let removedCar: Car | undefined;
+    let removedCar;
 
     if (index > -1) {
       removedCar = user?.cars.splice(index, 1);
@@ -149,7 +149,7 @@ export const deleteCar = async (
 
     await user?.save();
 
-    res.status(200).json(removedCar).end();
+    res.status(200).json(removedCar[0]).end();
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

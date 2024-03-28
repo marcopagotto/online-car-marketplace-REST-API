@@ -97,7 +97,7 @@ export const deleteCar = async (req, res) => {
             }
         }
         await user?.save();
-        res.status(200).json(removedCar).end();
+        res.status(200).json(removedCar[0]).end();
     }
     catch (error) {
         console.log(error);
