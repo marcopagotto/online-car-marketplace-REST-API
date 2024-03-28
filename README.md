@@ -70,7 +70,7 @@ Examples of requests and corresponding responses that demonstrate the usage of t
 }
 ```
 
-<em>Response:</em>
+<em>Response body:</em>
 
 ```json
 {
@@ -104,7 +104,7 @@ Notes: </br>email provided in <em>Request Body</em> must be unique
 }
 ```
 
-<em>Response:</em>
+<em>Response body:</em>
 
 ```json
 {
@@ -125,4 +125,101 @@ Notes:
 <code>AUTH-LOGIN</code> cookie attached:
 | Name | Value | Domain | Path | Expires | HttpOnly | Secure |
 |-|-|-|-|-|-|-|
-AUTH-LOGIN | 736ef707293451d0c8ef<br>79f65f94c15b450cebb2<br>4ffa7c99173c86810d36<br>3a04|localhost|/|Session|false|false|
+AUTH-LOGIN | 736ef707293451d0c8ef79<br>f65f94c15b450cebb24ffa7<br>c99173c86810d363a04|localhost|/|Session|false|false|
+
+</br>
+
+<li><b>Add car:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/cars/add/66056f78595b4f13e5b43111</code></br>
+<em>Request method</em>: <b>
+<span style="color: #FFD700;">POST</span>
+</b></br>
+
+<em>Request body</em>:
+
+```json
+{
+  "make": "Lamborghini",
+  "model": "Aventador",
+  "year": 2022
+}
+```
+
+<em>Response body:</em>
+
+```json
+{
+  "make": "Lamborghini",
+  "model": "Aventador",
+  "year": 2022,
+  "_id": "66058dca9776944f3ea1f819"
+}
+```
+
+</br>
+
+<li><b>Create listing:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/listings/create</code></br>
+<em>Request method</em>: <b>
+<span style="color: #FFD700;">POST</span>
+</b></br>
+
+<em>Request body</em>:
+
+```json
+{
+  "carId": "66058dca9776944f3ea1f819",
+  "owner": "66056f78595b4f13e5b43111",
+  "price": 180000
+}
+```
+
+<em>Response body:</em>
+
+```json
+{
+  "car": {
+    "make": "Lamborghini",
+    "model": "Aventador",
+    "year": 2022,
+    "_id": "66058dca9776944f3ea1f819"
+  },
+  "owner": "66056f78595b4f13e5b43111",
+  "price": 180000,
+  "_id": "66058fe99776944f3ea1f824",
+  "__v": 0
+}
+```
+
+Notes: </br>each car can <em>only</em> be associated to one listing
+
+</br>
+
+<li><b>Get users:</b></br>
+<em>Path:</em> <code>http://localhost:8080/api/users</code></br>
+<em>Request method</em>: <b>
+<span style="color: green;">GET</span>
+</b></br>
+
+<em>Response body:</em>
+
+```json
+[
+  {
+    "_id": "66056f78595b4f13e5b43111",
+    "username": "marco",
+    "email": "marco@gmail.com",
+    "cars": [
+      {
+        "make": "Lamborghini",
+        "model": "Aventador",
+        "year": 2022,
+        "_id": "66058dca9776944f3ea1f819"
+      }
+    ],
+    "__v": 1
+  }
+]
+```
+
+Notes: </br> by default the amount of users returned is capped at 5 - in the example provided there is only one user in the database - to specify the amount of users returned, "results" query should be included:<code>http://localhost:8080/api/users?results=10</code>
