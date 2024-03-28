@@ -4,6 +4,9 @@
 
 Online Car Marketplace REST API is an open source platform that enables car owners to connect to potential customers who may be interested in purchasing cars found in listings.
 
+### Technologies Used
+Online Car Marketplace REST API is based on [TypeScript](https://www.typescriptlang.org/), [NodeJS](https://nodejs.org/), [ExpressJS](https://www.expresjs.org/), [MongoDB](https://www.mongodb.com/) and [Mongoose ODM](https://mongoosejs.com/). 
+
 ### Installation Guide
 
 1. Clone this repository [here](https://github.com/marcopagotto/online-car-marketplace-REST-API.git)
@@ -467,3 +470,11 @@ Notes: </br> car's changes will also affect the possible listing associated to t
     "__v": 4
 }
 ```
+
+### Authors
+The project has been built with the contribution of:
+[Marco Pagotto](https://github.com/marcopagotto)
+
+
+### License
+This project is available for use under the MIT License.
