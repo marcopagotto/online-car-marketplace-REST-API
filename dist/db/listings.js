@@ -7,7 +7,7 @@ const ListingSchema = new mongoose.Schema({
     price: { type: Number, required: true },
 });
 const Listing = mongoose.model('Listing', ListingSchema);
-export const getListings = () => Listing.find();
+export const getListings = (docAmount = 5) => Listing.find().limit(docAmount);
 export const createListing = (car, owner, price) => {
     const listing = {
         car,

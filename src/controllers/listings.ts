@@ -69,9 +69,21 @@ export const findListings = async (
   res: express.Response
 ) => {
   try {
-    const listings = await getListings();
+    const { results } = req.query;
 
-    return res.status(200).json(listings).end();
+    if (!results) {
+      const listings = await getListings();
+      return res.status(200).json(listings).end();
+    }
+
+    const docAmount = parseInt(results as string);
+
+    if (isNaN(docAmount) || docAmount < 1) {
+      return res.sendStatus(400);
+    } else {
+      const listings = await getListings(docAmount);
+      return res.status(200).json(listings).end();
+    }
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

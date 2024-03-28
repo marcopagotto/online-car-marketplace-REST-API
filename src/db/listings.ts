@@ -11,7 +11,7 @@ const ListingSchema = new mongoose.Schema({
 
 const Listing = mongoose.model('Listing', ListingSchema);
 
-export const getListings = () => Listing.find();
+export const getListings = (docAmount = 5) => Listing.find().limit(docAmount);
 
 export const createListing = (
   car: mongoose.Types.Subdocument,
