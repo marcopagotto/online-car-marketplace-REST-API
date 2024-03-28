@@ -50,7 +50,10 @@ export const addCar = async (req, res) => {
         const user = await getUserById(id);
         user?.cars.push(car);
         await user?.save();
-        return res.status(200).json(car).end();
+        return res
+            .status(200)
+            .json(user?.cars[user?.cars.length - 1])
+            .end();
     }
     catch (error) {
         console.log(error);

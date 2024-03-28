@@ -85,7 +85,10 @@ export const addCar = async (req: express.Request, res: express.Response) => {
 
     await user?.save();
 
-    return res.status(200).json(car).end();
+    return res
+      .status(200)
+      .json(user?.cars[user?.cars.length - 1])
+      .end();
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
