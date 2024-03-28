@@ -122,6 +122,11 @@ export const editCar = async (req, res) => {
         car.model = model || car.model;
         car.year = year || car.year;
         await car.save();
+        const listing = await getListingByCarId(id);
+        if (listing) {
+            listing.car = car;
+            await listing.save();
+        }
         return res.status(200).json(car).end();
     }
     catch (error) {

@@ -187,6 +187,13 @@ export const editCar = async (req: express.Request, res: express.Response) => {
 
     await car.save();
 
+    const listing = await getListingByCarId(id);
+
+    if (listing) {
+      listing.car = car;
+      await listing.save();
+    }
+
     return res.status(200).json(car).end();
   } catch (error) {
     console.log(error);
