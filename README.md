@@ -42,7 +42,7 @@ Connect to the API using Postman on the port specified at .env.
 | POST       | /api/listings       | To post a listing                                                                                              | <ul><li>User must be authenticated <li>User must be car owner<ul> |
 | GET        | /api/users?results  | To retrive the registered users - the amount of users returned can be specified as a number in "results" query | <ul><li>User must be authenticated<ul>                                                          |
 | GET        | /api/cars/owner/:id | To retrive the user owning the car with the specifeid id                                                       | <ul><li>User must be authenticated<ul>                                                          |
-| GET        | /api/listings       | To retrive all the listings available                                                                          | No restrictions                                                                                 |
+| GET        | /api/listings?results       | To retrive listings - the amount of listings returned can be specified as a number in "results" query                                                                     | No restrictions                                                                                 |
 | GET | /api/listings/:id | To retrive the listing with the specified id | <ul><li>User must be authenticated</ul>
 | PATCH | /api/auth/change-password | To update the password of the authenticated user | <ul><li>User must be authenticated</ul>
 | PATCH | /api/cars/:id | To update the fields of the car with the specified id | <ul><li>User must be authenitcated<li>User must be car owner</ul>
